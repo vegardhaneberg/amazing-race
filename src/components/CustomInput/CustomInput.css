@@ -1,0 +1,39 @@
+.custom-input-light {
+    width: 254px;
+    height: 44px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #393939;
+    margin-bottom: 16px; /* to account for the gap between input fields */
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    box-sizing: border-box; /* to ensure padding and border are included in the total width and height */
+    outline: none; /* optional, if you don't want the default browser outline */
+    color: #525252;
+  }
+  .custom-input-dark {
+    width: 254px;
+    height: 44px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #393939;
+    margin-bottom: 16px; /* to account for the gap between input fields */
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    box-sizing: border-box; /* to ensure padding and border are included in the total width and height */
+    outline: none; /* optional, if you don't want the default browser outline */
+    color: #ffffff;
+  }
+  
+  .custom-input:focus {
+    border-color: #b6c3cc; /* change as needed, added for a subtle focus effect */
+  }
+  

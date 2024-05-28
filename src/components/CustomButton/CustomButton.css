@@ -1,0 +1,84 @@
+.custom-button {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  width: 254px;
+  height: 50px;
+  padding: 10px 18px 10px 18px;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.moveOn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background-color: #ffffff;
+  color: #000000;
+  margin: 0;
+}
+
+.custom-button.primary {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.custom-button:hover.primary {
+  background-color: #cbcbcb;
+}
+
+.custom-button.danger {
+  background-color: #a74a4a;
+  color: #dadada;
+}
+
+.custom-button:hover.danger {
+  background-color: #833a3a;
+}
+
+/* Do we want secondary buttons? */
+.custom-button.secondary {
+  background-color: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+.custom-button:hover.secondary {
+  background-color: #e6f0ff;
+}
+
+.custom-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .custom-button {
+    font-size: 10px;
+    width: 150px;
+    height: 30px;
+  }
+}
+
+.initial {
+  font-size: 16px;
+  width: 254px;
+  height: 50px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  .initial {
+    font-size: 16px;
+    width: 254px;
+    height: 50px;
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
