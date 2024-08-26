@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick?: () => void;
   variant?: "primary" | "secondary" | "danger" | "moveOn" | "initial";
   disabled?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const CustomButton: React.FC<ButtonProps> = ({
@@ -13,6 +14,7 @@ const CustomButton: React.FC<ButtonProps> = ({
   onClick,
   variant = "primary",
   disabled,
+  type = "button",
 }) => {
   const width = variant == "danger" ? "auto" : "";
   return (
@@ -21,6 +23,7 @@ const CustomButton: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       style={{ width: width }}
+      type={type}
     >
       {label}
     </button>

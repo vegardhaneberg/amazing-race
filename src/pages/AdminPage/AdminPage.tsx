@@ -28,7 +28,11 @@ function AdminPage() {
                 placeholder="TaskId"
                 onChange={(e) => setTaskId(e.target.value)}
               />
-              <CustomButton label="Generate QR Code" variant="initial" />
+              <CustomButton
+                label="Generate QR Code"
+                variant="initial"
+                type="submit"
+              />
             </div>
           </form>
         </>
@@ -36,7 +40,7 @@ function AdminPage() {
         <>
           <QRCode
             size={300}
-            value={`http://192.168.1.223:5173/currentchallenge?id=${taskId}`}
+            value={`http://192.168.0.104:5173/redirect?id=${taskId}`}
           />
           <h1>{`${window.location.host}/currentchallenge?id=${taskId}`}</h1>
         </>
