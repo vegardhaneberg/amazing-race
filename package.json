@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@turf/turf": "^7.2.0",
     "firebase": "^10.13.0",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
