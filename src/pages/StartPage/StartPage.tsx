@@ -12,7 +12,7 @@ export function StartPage() {
   useEffect(() => {
     const team = getCookie("team");
     if (team) {
-      navigate("/currentChallenge");
+      navigate("/");
     }
   }, []);
 
@@ -20,7 +20,7 @@ export function StartPage() {
     const teamId = await validateTeamCode(code);
     if (teamId) {
       setCookie("team", teamId);
-      navigate("/currentChallenge");
+      navigate("/");
     }
   };
 

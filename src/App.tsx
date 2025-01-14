@@ -1,6 +1,11 @@
 import { alpha, AppShell, Flex, Stack, Tabs, Text } from "@mantine/core";
 import { useState } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import "./App.css";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import CurrentChallengePage from "./pages/CurrentChallengePage/CurrentChallengePage";
@@ -42,13 +47,13 @@ function App() {
             style={{ overflow: "hidden" }}
           >
             <Routes>
-              <Route path="*" element={<StartPage />} />
+              <Route
+                path="*"
+                element={<CurrentChallengePage activeTab={activeTab} />}
+              />
               <Route path="/redirect" element={<RedirectPage />} />
               <Route path="/admin" element={<AdminPage />} />
-              <Route
-                path="/currentchallenge"
-                element={<CurrentChallengePage />}
-              />
+              <Route path="/startpage" element={<StartPage />} />
             </Routes>
           </Stack>
         </Router>

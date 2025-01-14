@@ -24,7 +24,10 @@ export const testList: Coordinate[] = [
   { latitude: 59.91892830020875, longitude: 10.74846215146542 },
 ];
 
-function CurrentChallengePage() {
+interface CurrentChallengePageProps {
+  activeTab: string;
+}
+function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
   const navigate = useNavigate();
   const [currentChallenge, setCurrentChallenge] = useState<Challenge>();
   const [team, setTeam] = useState<Team>();
@@ -83,7 +86,7 @@ function CurrentChallengePage() {
 
   return (
     <>
-      {currentChallenge && team && (
+      {activeTab === "LOL1" && currentChallenge && team && (
         <Stack>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
@@ -99,8 +102,10 @@ function CurrentChallengePage() {
             </Button>
             <Button onClick={() => checkDistance(testList[6])}>Martin</Button>
           </Flex>
-          <HintPage currentChallenge={currentChallenge} team={team} />
         </Stack>
+      )}
+      {activeTab === "LOL2" && currentChallenge && team && (
+        <HintPage currentChallenge={currentChallenge} team={team} />
       )}
     </>
   );
