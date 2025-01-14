@@ -3,7 +3,13 @@ import { distance } from "@turf/turf";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../helpers/CookieHelper";
-import { Challenge, getCurrentChallege } from "../../helpers/firebaseHelper";
+import {
+  Challenge,
+  getCurrentChallege,
+  getTeam,
+  Team,
+} from "../../helpers/firebaseHelper";
+import HintPage from "../HintPage/HintPage";
 import "./CurrentChallengePage.css";
 
 export type Coordinate = { latitude: number; longitude: number };
@@ -21,6 +27,7 @@ export const testList: Coordinate[] = [
 function CurrentChallengePage() {
   const navigate = useNavigate();
   const [currentChallenge, setCurrentChallenge] = useState<Challenge>();
+  const [team, setTeam] = useState<Team>();
   const [userLocation, setUserLocation] = useState<Coordinate | undefined>();
   const [realDistance, setRealDistance] = useState<number>(10000);
 
@@ -32,6 +39,9 @@ function CurrentChallengePage() {
     if (teamId) {
       getCurrentChallege(teamId).then((challenge) => {
         setCurrentChallenge(challenge);
+      });
+      getTeam(teamId).then((firebaseTeam) => {
+        setTeam(firebaseTeam);
       });
     }
   }, []);
@@ -45,7 +55,6 @@ function CurrentChallengePage() {
           // save the geolocation coordinates in two variables
           const { latitude, longitude } = position.coords;
           // update the value of userlocation variable
-          console.log(latitude, longitude);
           setUserLocation({ latitude, longitude });
         },
         // if there was an error getting the users location
@@ -63,10 +72,6 @@ function CurrentChallengePage() {
   const checkDistance = (coor: Coordinate) => {
     getUserLocation();
     if (userLocation) {
-      console.log(
-        [userLocation?.latitude, userLocation?.longitude],
-        [coor?.latitude, coor?.longitude]
-      );
       const distance1 = distance(
         [userLocation?.longitude, userLocation?.latitude],
         [coor?.longitude, coor?.latitude],
@@ -78,11 +83,11 @@ function CurrentChallengePage() {
 
   return (
     <>
-      {currentChallenge && (
-        <Stack maw={"390px"}>
+      {currentChallenge && team && (
+        <Stack>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
-          <h1>{realDistance.toFixed(2)}</h1>
+          <h1>{realDistance}</h1>
           <Flex wrap={"wrap"} gap={"xs"}>
             <Button onClick={() => checkDistance(testList[0])}>Vegard</Button>
             <Button onClick={() => checkDistance(testList[1])}>Mads</Button>
@@ -94,6 +99,7 @@ function CurrentChallengePage() {
             </Button>
             <Button onClick={() => checkDistance(testList[6])}>Martin</Button>
           </Flex>
+          <HintPage currentChallenge={currentChallenge} team={team} />
         </Stack>
       )}
     </>
