@@ -4,6 +4,7 @@ import { db } from "./../../firebaseConfig";
 export type Team = {
   id: string;
   currentChallengeId: string;
+  currentChallengeStartTime?: number | undefined;
   code: string;
 };
 
@@ -11,6 +12,8 @@ export type Challenge = {
   id: string;
   title: string;
   description: string;
+  firstHint: string;
+  secondHint: string;
 };
 
 export const getTeam = async (teamId: string) => {
@@ -65,6 +68,7 @@ export const setCurrentChallenge = async (
     const editedTeams = teams.map((team) => {
       if (team.id === teamId) {
         team.currentChallengeId = challengeId;
+        team.currentChallengeStartTime = Date.now();
       }
       return team;
     });
