@@ -1,9 +1,10 @@
+import { Button, Flex, Stack } from "@mantine/core";
+import { distance } from "@turf/turf";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../helpers/CookieHelper";
 import { Challenge, getCurrentChallege } from "../../helpers/firebaseHelper";
 import "./CurrentChallengePage.css";
-import { distance } from "@turf/turf";
 
 export type Coordinate = { latitude: number; longitude: number };
 
@@ -78,18 +79,22 @@ function CurrentChallengePage() {
   return (
     <>
       {currentChallenge && (
-        <div>
+        <Stack maw={"390px"}>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
-          <h1>{realDistance}</h1>
-          <button onClick={() => checkDistance(testList[0])}>Vegard</button>
-          <button onClick={() => checkDistance(testList[1])}>Mads</button>
-          <button onClick={() => checkDistance(testList[2])}>MESH</button>
-          <button onClick={() => checkDistance(testList[3])}>PayEx</button>
-          <button onClick={() => checkDistance(testList[4])}>Multi</button>
-          <button onClick={() => checkDistance(testList[5])}>Graveyard</button>
-          <button onClick={() => checkDistance(testList[6])}>Martin</button>
-        </div>
+          <h1>{realDistance.toFixed(2)}</h1>
+          <Flex wrap={"wrap"} gap={"xs"}>
+            <Button onClick={() => checkDistance(testList[0])}>Vegard</Button>
+            <Button onClick={() => checkDistance(testList[1])}>Mads</Button>
+            <Button onClick={() => checkDistance(testList[2])}>MESH</Button>
+            <Button onClick={() => checkDistance(testList[3])}>PayEx</Button>
+            <Button onClick={() => checkDistance(testList[4])}>Multi</Button>
+            <Button onClick={() => checkDistance(testList[5])}>
+              Graveyard
+            </Button>
+            <Button onClick={() => checkDistance(testList[6])}>Martin</Button>
+          </Flex>
+        </Stack>
       )}
     </>
   );
