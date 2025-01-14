@@ -87,7 +87,7 @@ function CurrentChallengePage() {
         <Stack>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
-          <h1>{realDistance}</h1>
+          <h1>{realDistance.toFixed(2)}</h1>
           <Flex wrap={"wrap"} gap={"xs"}>
             <Button onClick={() => checkDistance(testList[0])}>Vegard</Button>
             <Button onClick={() => checkDistance(testList[1])}>Mads</Button>
