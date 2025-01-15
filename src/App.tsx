@@ -11,8 +11,8 @@ function App() {
   const [activeTab, setActiveTab] = useState<string>("LOL1");
 
   return (
-    <AppShell>
-      <AppShell.Header>
+    <AppShell mah={"100vh"} header={{ height: 50 }} h={"100%"}>
+      <AppShell.Header style={{ border: "0px solid black" }}>
         <Flex justify={"center"} w={"100%"}>
           <Tabs classNames={{ tab: "tab" }} value={activeTab} w={"100%"}>
             <Tabs.List>
