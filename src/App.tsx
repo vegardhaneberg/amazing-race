@@ -1,11 +1,6 @@
 import { alpha, AppShell, Flex, Stack, Tabs, Text } from "@mantine/core";
 import { useState } from "react";
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import CurrentChallengePage from "./pages/CurrentChallengePage/CurrentChallengePage";
@@ -15,21 +10,31 @@ import { StartPage } from "./pages/StartPage/StartPage";
 function App() {
   const [activeTab, setActiveTab] = useState<string>("LOL1");
 
-  console.log(Date.now());
-
   return (
     <AppShell>
       <AppShell.Header>
         <Flex justify={"center"} w={"100%"}>
           <Tabs classNames={{ tab: "tab" }} value={activeTab} w={"100%"}>
-            <Tabs.List grow>
-              <Tabs.Tab value="LOL1" onClick={() => setActiveTab("LOL1")}>
+            <Tabs.List>
+              <Tabs.Tab
+                value="LOL1"
+                onClick={() => setActiveTab("LOL1")}
+                w={"33%"}
+              >
                 <Text>Hjem</Text>
               </Tabs.Tab>
-              <Tabs.Tab value="LOL2" onClick={() => setActiveTab("LOL2")}>
+              <Tabs.Tab
+                value="LOL2"
+                onClick={() => setActiveTab("LOL2")}
+                w={"33%"}
+              >
                 <Text>Hint</Text>
               </Tabs.Tab>
-              <Tabs.Tab value="LOL3" onClick={() => setActiveTab("LOL3")}>
+              <Tabs.Tab
+                value="LOL3"
+                onClick={() => setActiveTab("LOL3")}
+                w={"33%"}
+              >
                 <Text>Challenges</Text>
               </Tabs.Tab>
             </Tabs.List>
