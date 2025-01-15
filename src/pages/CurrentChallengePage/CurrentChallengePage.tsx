@@ -11,6 +11,7 @@ import {
 } from "../../helpers/firebaseHelper";
 import HintPage from "../HintPage/HintPage";
 import "./CurrentChallengePage.css";
+import { hintTab, homeTab } from "../../helpers/constants";
 
 export type Coordinate = { latitude: number; longitude: number };
 
@@ -86,7 +87,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
 
   return (
     <>
-      {activeTab === "LOL1" && currentChallenge && team && (
+      {activeTab === homeTab && currentChallenge && team && (
         <Stack>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
@@ -104,7 +105,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
           </Flex>
         </Stack>
       )}
-      {activeTab === "LOL2" && currentChallenge && team && (
+      {activeTab === hintTab && currentChallenge && team && (
         <HintPage
           currentChallenge={currentChallenge}
           team={team}

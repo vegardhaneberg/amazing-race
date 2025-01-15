@@ -6,9 +6,10 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import CurrentChallengePage from "./pages/CurrentChallengePage/CurrentChallengePage";
 import { RedirectPage } from "./pages/RedirectPage/RedirectPage";
 import { StartPage } from "./pages/StartPage/StartPage";
+import { challengeTab, hintTab, homeTab } from "./helpers/constants";
 
 function App() {
-  const [activeTab, setActiveTab] = useState<string>("LOL1");
+  const [activeTab, setActiveTab] = useState<string>(homeTab);
 
   return (
     <AppShell>
@@ -16,13 +17,16 @@ function App() {
         <Flex justify={"center"} w={"100%"}>
           <Tabs classNames={{ tab: "tab" }} value={activeTab} w={"100%"}>
             <Tabs.List grow>
-              <Tabs.Tab value="LOL1" onClick={() => setActiveTab("LOL1")}>
+              <Tabs.Tab value={homeTab} onClick={() => setActiveTab(homeTab)}>
                 <Text>Hjem</Text>
               </Tabs.Tab>
-              <Tabs.Tab value="LOL2" onClick={() => setActiveTab("LOL2")}>
+              <Tabs.Tab value={hintTab} onClick={() => setActiveTab(hintTab)}>
                 <Text>Hint</Text>
               </Tabs.Tab>
-              <Tabs.Tab value="LOL3" onClick={() => setActiveTab("LOL3")}>
+              <Tabs.Tab
+                value={challengeTab}
+                onClick={() => setActiveTab(challengeTab)}
+              >
                 <Text>Challenges</Text>
               </Tabs.Tab>
             </Tabs.List>
