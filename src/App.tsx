@@ -1,11 +1,6 @@
 import { alpha, AppShell, Flex, Stack, Tabs, Text } from "@mantine/core";
 import { useState } from "react";
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import CurrentChallengePage from "./pages/CurrentChallengePage/CurrentChallengePage";
