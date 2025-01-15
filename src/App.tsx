@@ -10,8 +10,6 @@ import { StartPage } from "./pages/StartPage/StartPage";
 function App() {
   const [activeTab, setActiveTab] = useState<string>("LOL1");
 
-  console.log(Date.now());
-
   return (
     <AppShell>
       <AppShell.Header>

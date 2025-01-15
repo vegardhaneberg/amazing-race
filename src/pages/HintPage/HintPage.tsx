@@ -1,22 +1,27 @@
-import { useEffect, useState } from "react";
-import { Challenge, Team } from "../../helpers/firebaseHelper";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { buyHint, Challenge, Team } from "../../helpers/firebaseHelper";
 import {
   calculateCurrentHint,
   calculateTimeLeft,
-  hintTime,
 } from "../../helpers/amazingRaceHelper";
+import { Button } from "@mantine/core";
+import { hintPrize, hintTime } from "../../helpers/constants";
 
 interface HintPageProps {
   team: Team;
   currentChallenge: Challenge;
+  setTeam: Dispatch<SetStateAction<Team | undefined>>;
 }
-function HintPage({ team, currentChallenge }: HintPageProps) {
+function HintPage({ team, currentChallenge, setTeam }: HintPageProps) {
   const [currentHint, setCurrentHint] = useState<number>(
     calculateCurrentHint(team.currentChallengeStartTime!)
   );
   const [timeLeft, setTimeLeft] = useState<number>(
     calculateTimeLeft(team.currentChallengeStartTime!, currentHint)
   );
+  const [notAffordMessage, setNotAffordMessage] = useState<
+    string | undefined
+  >();
 
   useEffect(() => {
     if (currentHint >= 4) return;
@@ -47,6 +52,15 @@ function HintPage({ team, currentChallenge }: HintPageProps) {
     return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
+  async function handleBuyHint() {
+    if (team.balance >= hintPrize) {
+      const newTeam = await buyHint(team);
+      setTeam(newTeam);
+      setCurrentHint(currentHint + 1);
+      setNotAffordMessage(undefined);
+    } else setNotAffordMessage("Dere har ikke råd 🥶");
+  }
+
   return (
     <>
       {currentChallenge && (
@@ -69,6 +83,8 @@ function HintPage({ team, currentChallenge }: HintPageProps) {
           </div>
         </>
       )}
+      {team && <Button onClick={() => handleBuyHint()}>Kjøp hint! </Button>}
+      {notAffordMessage && <p style={{ color: "red" }}>{notAffordMessage}</p>}
     </>
   );
 }

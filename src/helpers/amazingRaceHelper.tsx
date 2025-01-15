@@ -1,4 +1,5 @@
-export const hintTime = 10;
+import { hintTime } from "./constants";
+
 export const calculateTimeLeft = (
   currentChallengeStartTime: number,
   currentHint: number

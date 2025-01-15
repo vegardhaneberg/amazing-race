@@ -105,7 +105,11 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
         </Stack>
       )}
       {activeTab === "LOL2" && currentChallenge && team && (
-        <HintPage currentChallenge={currentChallenge} team={team} />
+        <HintPage
+          currentChallenge={currentChallenge}
+          team={team}
+          setTeam={setTeam}
+        />
       )}
     </>
   );
