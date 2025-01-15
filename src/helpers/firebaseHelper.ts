@@ -1,11 +1,13 @@
 import { get, ref, set } from "firebase/database";
 import { db } from "./../../firebaseConfig";
+import { hintPrize, hintTime } from "./constants";
 
 export type Team = {
   id: string;
   currentChallengeId: string;
   currentChallengeStartTime?: number | undefined;
   code: string;
+  balance: number;
 };
 
 export type Challenge = {
@@ -75,4 +77,27 @@ export const setCurrentChallenge = async (
 
     await set(teamsRef, editedTeams);
   }
+};
+
+export const buyHint = async (team: Team): Promise<Team> => {
+  team.balance = team.balance - 50;
+  team.currentChallengeStartTime =
+    team.currentChallengeStartTime! - hintTime * 60 * 1000;
+
+  const teamsRef = ref(db, `teams`);
+
+  const teams: Team[] = (await get(teamsRef)).val();
+
+  const editedTeams = teams.map((t) => {
+    if (t.id === team.id) {
+      t.balance = t.balance - hintPrize;
+      t.currentChallengeStartTime =
+        t.currentChallengeStartTime! - hintTime * 60 * 1000;
+    }
+    return t;
+  });
+
+  await set(teamsRef, editedTeams);
+
+  return editedTeams.find((t) => t.id === team.id)!;
 };

@@ -1,6 +1,7 @@
 import { Button, Flex, Stack } from "@mantine/core";
 import { distance } from "@turf/turf";
 import { useEffect, useState } from "react";
+import { hintTab, homeTab } from "../../helpers/constants";
 import { getCookie } from "../../helpers/CookieHelper";
 import {
   Challenge,
@@ -82,7 +83,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
 
   return (
     <>
-      {activeTab === "LOL1" && currentChallenge && team && (
+      {activeTab === homeTab && currentChallenge && team && (
         <Stack align="center" justify="center" px={"sm"}>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
@@ -100,8 +101,12 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
           </Flex>
         </Stack>
       )}
-      {activeTab === "LOL2" && currentChallenge && team && (
-        <HintPage currentChallenge={currentChallenge} team={team} />
+      {activeTab === hintTab && currentChallenge && team && (
+        <HintPage
+          currentChallenge={currentChallenge}
+          team={team}
+          setTeam={setTeam}
+        />
       )}
     </>
   );
