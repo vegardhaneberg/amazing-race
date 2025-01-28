@@ -1,6 +1,7 @@
-import { Button, Flex, Stack } from "@mantine/core";
+import { Button, Flex, Stack, Title } from "@mantine/core";
 import { distance } from "@turf/turf";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { hintTab, homeTab } from "../../helpers/constants";
 import { getCookie } from "../../helpers/CookieHelper";
 import {
@@ -11,7 +12,6 @@ import {
 } from "../../helpers/firebaseHelper";
 import HintPage from "../HintPage/HintPage";
 import "./CurrentChallengePage.css";
-import { useNavigate } from "react-router-dom";
 
 export type Coordinate = { latitude: number; longitude: number };
 
@@ -88,7 +88,9 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
       {activeTab === homeTab && currentChallenge && team && (
         <Stack align="center" justify="center" px={"sm"}>
           <h1>{currentChallenge.title}</h1>
-          <h3>{currentChallenge.description}</h3>
+          <Title order={3} ta={"center"}>
+            {currentChallenge.description}
+          </Title>
           <h1>{realDistance.toFixed(2)}</h1>
           <Flex wrap={"wrap"} gap={"xs"}>
             <Button onClick={() => checkDistance(testList[0])}>Vegard</Button>
