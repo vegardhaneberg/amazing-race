@@ -11,6 +11,7 @@ import {
 } from "../../helpers/firebaseHelper";
 import HintPage from "../HintPage/HintPage";
 import "./CurrentChallengePage.css";
+import { useNavigate } from "react-router-dom";
 
 export type Coordinate = { latitude: number; longitude: number };
 
@@ -32,6 +33,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
   const [team, setTeam] = useState<Team>();
   const [userLocation, setUserLocation] = useState<Coordinate | undefined>();
   const [realDistance, setRealDistance] = useState<number>(10000);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const teamId = getCookie("team");
@@ -43,7 +45,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
       getTeam(teamId).then((firebaseTeam) => {
         setTeam(firebaseTeam);
       });
-    }
+    } else navigate("/startpage");
   }, []);
 
   const getUserLocation = () => {

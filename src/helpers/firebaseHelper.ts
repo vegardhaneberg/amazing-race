@@ -42,7 +42,9 @@ export const validateTeamCode = async (answer: string) => {
   const firebaseData = await get(teamsRef);
   const teams: Team[] = Object.values(firebaseData.val());
 
-  const teamId = teams.find((team) => team.code === answer)?.id;
+  const teamId = teams.find(
+    (team) => team.code.toLowerCase() === answer.toLowerCase()
+  )?.id;
 
   return teamId;
 };
