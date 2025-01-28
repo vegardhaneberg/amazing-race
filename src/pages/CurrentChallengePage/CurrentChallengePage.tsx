@@ -1,7 +1,7 @@
 import { Button, Flex, Stack } from "@mantine/core";
 import { distance } from "@turf/turf";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { hintTab, homeTab } from "../../helpers/constants";
 import { getCookie } from "../../helpers/CookieHelper";
 import {
   Challenge,
@@ -11,7 +11,6 @@ import {
 } from "../../helpers/firebaseHelper";
 import HintPage from "../HintPage/HintPage";
 import "./CurrentChallengePage.css";
-import { hintTab, homeTab } from "../../helpers/constants";
 
 export type Coordinate = { latitude: number; longitude: number };
 
@@ -29,7 +28,6 @@ interface CurrentChallengePageProps {
   activeTab: string;
 }
 function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
-  const navigate = useNavigate();
   const [currentChallenge, setCurrentChallenge] = useState<Challenge>();
   const [team, setTeam] = useState<Team>();
   const [userLocation, setUserLocation] = useState<Coordinate | undefined>();
@@ -37,9 +35,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
 
   useEffect(() => {
     const teamId = getCookie("team");
-    if (!teamId) {
-      navigate("/");
-    }
+
     if (teamId) {
       getCurrentChallege(teamId).then((challenge) => {
         setCurrentChallenge(challenge);
@@ -88,7 +84,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
   return (
     <>
       {activeTab === homeTab && currentChallenge && team && (
-        <Stack>
+        <Stack align="center" justify="center" px={"sm"}>
           <h1>{currentChallenge.title}</h1>
           <h3>{currentChallenge.description}</h3>
           <h1>{realDistance.toFixed(2)}</h1>
