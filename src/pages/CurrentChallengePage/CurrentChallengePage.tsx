@@ -71,6 +71,10 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
     }
   };
 
+  useEffect(() => {
+    getUserLocation();
+  }, []);
+
   const checkDistance = (coor: Coordinate) => {
     getUserLocation();
     if (userLocation) {
