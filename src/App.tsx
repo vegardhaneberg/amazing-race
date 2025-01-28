@@ -13,7 +13,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<string>(homeTab);
 
   return (
-    <AppShell mah={"100vh"} header={{ height: 50 }} h={"100%"}>
+    <AppShell mah={"100vh"} header={{ height: "50px" }} h={"100%"}>
       <AppShell.Header style={{ border: "0px solid black" }}>
         <Flex justify={"center"} w={"100%"}>
           <Tabs classNames={{ tab: "tab" }} value={activeTab} w={"100%"}>
@@ -46,12 +46,11 @@ function App() {
       <AppShell.Main>
         <Router>
           <Stack
-            maw={"390px"}
-            p={"sm"}
-            h={"100%"}
+            mah={"844px"}
             align="center"
             justify="center"
-            style={{ overflow: "hidden" }}
+            style={{ overflow: "hidden", height: "calc(100vh - 51)" }}
+            className="main"
           >
             <Routes>
               <Route
