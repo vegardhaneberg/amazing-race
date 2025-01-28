@@ -8,6 +8,7 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import CurrentChallengePage from "./pages/CurrentChallengePage/CurrentChallengePage";
 import { RedirectPage } from "./pages/RedirectPage/RedirectPage";
 import { StartPage } from "./pages/StartPage/StartPage";
+import TestPage from "./pages/TestPage/TestPage";
 
 function App() {
   const [activeTab, setActiveTab] = useState<string>(homeTab);
@@ -60,6 +61,7 @@ function App() {
               <Route path="/redirect" element={<RedirectPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/startpage" element={<StartPage />} />
+              <Route path="/test" element={<TestPage />} />
             </Routes>
           </Stack>
         </Router>

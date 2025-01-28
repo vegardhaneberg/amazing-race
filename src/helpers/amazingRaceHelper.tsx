@@ -20,3 +20,5 @@ export const calculateCurrentHint = (
 
   return Math.floor(diff / hintTime);
 };
+
+export type Coordinate = { latitude: number; longitude: number };

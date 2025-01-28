@@ -1,29 +1,24 @@
-import { Button, Flex, Stack, Title } from "@mantine/core";
+import { Button, Stack, Title } from "@mantine/core";
 import { distance } from "@turf/turf";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { hintTab, homeTab } from "../../helpers/constants";
+import {
+  challengeDistanceLimit,
+  hintTab,
+  homeTab,
+} from "../../helpers/constants";
 import { getCookie } from "../../helpers/CookieHelper";
 import {
   Challenge,
   getCurrentChallege,
+  getNextChallenge,
   getTeam,
+  setCurrentChallengeForTeam,
   Team,
 } from "../../helpers/firebaseHelper";
 import HintPage from "../HintPage/HintPage";
 import "./CurrentChallengePage.css";
-
-export type Coordinate = { latitude: number; longitude: number };
-
-export const testList: Coordinate[] = [
-  { latitude: 59.92145113488405, longitude: 10.73803867420123 },
-  { latitude: 59.92378369549516, longitude: 10.736378398421776 },
-  { latitude: 59.91291816904782, longitude: 10.736472096436001 },
-  { latitude: 59.909918234290906, longitude: 10.741901366040695 },
-  { latitude: 59.923254611577455, longitude: 10.680592200228512 },
-  { latitude: 59.91936179299668, longitude: 10.74387067821494 },
-  { latitude: 59.91892830020875, longitude: 10.74846215146542 },
-];
+import { Coordinate } from "../../helpers/amazingRaceHelper";
 
 interface CurrentChallengePageProps {
   activeTab: string;
@@ -32,7 +27,6 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
   const [currentChallenge, setCurrentChallenge] = useState<Challenge>();
   const [team, setTeam] = useState<Team>();
   const [userLocation, setUserLocation] = useState<Coordinate | undefined>();
-  const [realDistance, setRealDistance] = useState<number>(10000);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,15 +69,22 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
     getUserLocation();
   }, []);
 
-  const checkDistance = (coor: Coordinate) => {
-    getUserLocation();
-    if (userLocation) {
-      const distance1 = distance(
-        [userLocation?.longitude, userLocation?.latitude],
-        [coor?.longitude, coor?.latitude],
-        { units: "meters" }
-      );
-      setRealDistance(distance1);
+  const checkDistance = async () => {
+    if (team) {
+      getUserLocation();
+      if (userLocation && currentChallenge) {
+        const distanceToChallengePoint = distance(
+          [userLocation?.longitude, userLocation?.latitude],
+          [currentChallenge.longitude, currentChallenge.latitude],
+          { units: "meters" }
+        );
+
+        if (distanceToChallengePoint <= challengeDistanceLimit) {
+          const nextChallenge = await getNextChallenge(currentChallenge.id);
+          setCurrentChallengeForTeam(team.id, nextChallenge.id);
+          setCurrentChallenge(nextChallenge);
+        } else alert("for langt unna");
+      }
     }
   };
 
@@ -95,18 +96,8 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
           <Title order={3} ta={"center"}>
             {currentChallenge.description}
           </Title>
-          <h1>{realDistance.toFixed(2)}</h1>
-          <Flex wrap={"wrap"} gap={"xs"}>
-            <Button onClick={() => checkDistance(testList[0])}>Vegard</Button>
-            <Button onClick={() => checkDistance(testList[1])}>Mads</Button>
-            <Button onClick={() => checkDistance(testList[2])}>MESH</Button>
-            <Button onClick={() => checkDistance(testList[3])}>PayEx</Button>
-            <Button onClick={() => checkDistance(testList[4])}>Multi</Button>
-            <Button onClick={() => checkDistance(testList[5])}>
-              Graveyard
-            </Button>
-            <Button onClick={() => checkDistance(testList[6])}>Martin</Button>
-          </Flex>
+          {/* <h1>{realDistance.toFixed(2)}</h1> */}
+          <Button onClick={() => checkDistance()}>Sjekk posisjonen min</Button>
         </Stack>
       )}
       {activeTab === hintTab && currentChallenge && team && (

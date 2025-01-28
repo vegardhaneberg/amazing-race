@@ -16,6 +16,8 @@ export type Challenge = {
   description: string;
   firstHint: string;
   secondHint: string;
+  latitude: number;
+  longitude: number;
 };
 
 export const getTeam = async (teamId: string) => {
@@ -62,7 +64,7 @@ export const getCurrentChallege = async (teamId: string) => {
   return currentChallenge;
 };
 
-export const setCurrentChallenge = async (
+export const setCurrentChallengeForTeam = async (
   teamId: string,
   challengeId: string
 ) => {
@@ -79,6 +81,20 @@ export const setCurrentChallenge = async (
 
     await set(teamsRef, editedTeams);
   }
+};
+
+export const getChallenges = async () => {
+  const challengeRef = ref(db, `challenges`);
+  const firebaseData = await get(challengeRef);
+  const challenges: Challenge[] = firebaseData.val();
+
+  return challenges;
+};
+
+export const getNextChallenge = async (challengeId: string) => {
+  const challenges = await getChallenges();
+  const i = challenges.findIndex((c) => c.id === challengeId);
+  return challenges[i + 1];
 };
 
 export const buyHint = async (team: Team): Promise<Team> => {
