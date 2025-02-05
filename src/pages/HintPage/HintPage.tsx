@@ -6,8 +6,8 @@ import {
   calculateTimeLeft,
   getUserLocation,
 } from "../../helpers/amazingRaceHelper";
+import { buyHint, Challenge, Team } from "../../helpers/backendHelper";
 import { hintPrize, hintTime } from "../../helpers/constants";
-import { buyHint, Challenge, Team } from "../../helpers/firebaseHelper";
 
 interface HintPageProps {
   team: Team;

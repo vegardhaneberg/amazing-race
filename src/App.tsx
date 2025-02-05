@@ -6,6 +6,7 @@ import { challengeTab, hintTab, homeTab } from "./helpers/constants";
 import AdminPage from "./pages/AdminPage/AdminPage";
 
 import CurrentChallengePage from "./pages/CurrentChallengePage/CurrentChallengePage";
+import DebugPage from "./pages/DebugPage/DebugPage";
 import { RedirectPage } from "./pages/RedirectPage/RedirectPage";
 import { StartPage } from "./pages/StartPage/StartPage";
 import TestPage from "./pages/TestPage/TestPage";
@@ -62,6 +63,7 @@ function App() {
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/startpage" element={<StartPage />} />
               <Route path="/test" element={<TestPage />} />
+              <Route path="debug" element={<DebugPage />} />
             </Routes>
           </Stack>
         </Router>

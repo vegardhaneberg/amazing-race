@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../helpers/CookieHelper";
-import { setCurrentChallengeForTeam } from "../../helpers/firebaseHelper";
+import { getTeam, updateTeam } from "../../helpers/backendHelper";
 
 export function RedirectPage() {
   const navigate = useNavigate();
@@ -16,8 +16,12 @@ export function RedirectPage() {
     if (!challengeId) {
       navigate("/currentChallenge");
     }
-    setCurrentChallengeForTeam(teamId!, challengeId!).then(() => {
-      navigate("/currentChallenge");
+    getTeam(teamId!).then((team) => {
+      if (!team) {
+        navigate("/");
+      }
+      team!.currentChallengeId = challengeId!;
+      updateTeam(team!).then(() => navigate("/currentChallenge"));
     });
   }, []);
 

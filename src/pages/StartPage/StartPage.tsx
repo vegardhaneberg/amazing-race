@@ -2,7 +2,7 @@ import { Button, Stack, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie, setCookie } from "../../helpers/CookieHelper";
-import { validateTeamCode } from "../../helpers/firebaseHelper";
+import { validateTeamCode } from "../../helpers/backendHelper";
 
 export function StartPage() {
   const navigate = useNavigate();
@@ -16,9 +16,9 @@ export function StartPage() {
   }, []);
 
   const checkCode = async (code: string) => {
-    const teamId = await validateTeamCode(code);
-    if (teamId) {
-      setCookie("team", teamId);
+    const team = await validateTeamCode(code);
+    if (team) {
+      setCookie("team", team.id);
       navigate("/");
     }
   };
