@@ -2,7 +2,6 @@ import { Button, Flex, Stack, Text, Title } from "@mantine/core";
 import { distance } from "@turf/turf";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
-  calculateCurrentHint,
   calculateTimeLeft,
   getUserLocation,
 } from "../../helpers/amazingRaceHelper";
