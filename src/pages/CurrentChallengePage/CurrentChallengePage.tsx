@@ -46,12 +46,10 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
 
     getTeam(teamId!).then((team) => {
       if (team) {
-        console.log("Temalol", team);
         setTeam(team);
         setCurrentHint(calculateCurrentHint(team.currentChallengeStartTime!));
         getChallenge(team.currentChallengeId).then(
           (currentChallengeFireBase) => {
-            console.log("lolo", currentChallengeFireBase);
             setCurrentChallenge(currentChallengeFireBase);
           }
         );
@@ -134,15 +132,18 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
               </Button>
             </Stack>
           )}
-          {activeTab === hintTab && currentChallenge && team && currentHint && (
-            <HintPage
-              currentChallenge={currentChallenge}
-              currentHint={currentHint}
-              team={team}
-              setTeam={setTeam}
-              setCurrentHint={setCurrentHint}
-            />
-          )}
+          {activeTab === hintTab &&
+            currentChallenge &&
+            team &&
+            currentHint != undefined && (
+              <HintPage
+                currentChallenge={currentChallenge}
+                currentHint={currentHint}
+                team={team}
+                setTeam={setTeam}
+                setCurrentHint={setCurrentHint}
+              />
+            )}
         </>
       )}
     </>
