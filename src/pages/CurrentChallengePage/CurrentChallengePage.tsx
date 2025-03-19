@@ -48,7 +48,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
       if (team) {
         console.log("Temalol", team);
         setTeam(team);
-        calculateCurrentHint(team.currentChallengeStartTime!);
+        setCurrentHint(calculateCurrentHint(team.currentChallengeStartTime!));
         getChallenge(team.currentChallengeId).then(
           (currentChallengeFireBase) => {
             console.log("lolo", currentChallengeFireBase);
