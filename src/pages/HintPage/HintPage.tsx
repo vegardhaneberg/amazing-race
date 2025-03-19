@@ -12,12 +12,17 @@ import { hintPrize, hintTime } from "../../helpers/constants";
 interface HintPageProps {
   team: Team;
   currentChallenge: Challenge;
+  currentHint: number;
   setTeam: Dispatch<SetStateAction<Team | undefined>>;
+  setCurrentHint: Dispatch<SetStateAction<number | undefined>>;
 }
-function HintPage({ team, currentChallenge, setTeam }: HintPageProps) {
-  const [currentHint, setCurrentHint] = useState<number>(
-    calculateCurrentHint(team.currentChallengeStartTime!)
-  );
+function HintPage({
+  team,
+  currentChallenge,
+  currentHint,
+  setTeam,
+  setCurrentHint,
+}: HintPageProps) {
   const [timeLeft, setTimeLeft] = useState<number>(
     calculateTimeLeft(team.currentChallengeStartTime!, currentHint)
   );
@@ -133,7 +138,7 @@ function HintPage({ team, currentChallenge, setTeam }: HintPageProps) {
           )}
         </Stack>
       )}
-      {team && currentHint < 4 && (
+      {team && currentHint < 3 && (
         <Button onClick={() => handleBuyHint()}>Kjøp hint!</Button>
       )}
       {notAffordMessage && <p style={{ color: "red" }}>{notAffordMessage}</p>}

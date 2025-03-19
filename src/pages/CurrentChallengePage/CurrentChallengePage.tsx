@@ -2,7 +2,11 @@ import { Button, Stack, Text, Title } from "@mantine/core";
 import { distance } from "@turf/turf";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Coordinate, getUserLocation } from "../../helpers/amazingRaceHelper";
+import {
+  calculateCurrentHint,
+  Coordinate,
+  getUserLocation,
+} from "../../helpers/amazingRaceHelper";
 import {
   Challenge,
   getChallenge,
@@ -28,6 +32,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
   const [gifPath, setGifPath] = useState<string>("/Failed.gif");
   const [currentChallenge, setCurrentChallenge] = useState<Challenge>();
   const [team, setTeam] = useState<Team>();
+  const [currentHint, setCurrentHint] = useState<number>();
   const [userLocation, setUserLocation] = useState<Coordinate | undefined>();
   const navigate = useNavigate();
   const signalRUrl =
@@ -43,6 +48,7 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
       if (team) {
         console.log("Temalol", team);
         setTeam(team);
+        calculateCurrentHint(team.currentChallengeStartTime!);
         getChallenge(team.currentChallengeId).then(
           (currentChallengeFireBase) => {
             console.log("lolo", currentChallengeFireBase);
@@ -63,8 +69,8 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
     console.log("Received SignalR message:", team);
     if (team) {
       setTeam(team);
+      setCurrentHint(calculateCurrentHint(team.currentChallengeStartTime!));
       getChallenge(team.currentChallengeId).then((fireBaseCurrentChallenge) => {
-        console.log("lolol", fireBaseCurrentChallenge);
         setCurrentChallenge(fireBaseCurrentChallenge);
       });
     }
@@ -128,11 +134,13 @@ function CurrentChallengePage({ activeTab }: CurrentChallengePageProps) {
               </Button>
             </Stack>
           )}
-          {activeTab === hintTab && currentChallenge && team && (
+          {activeTab === hintTab && currentChallenge && team && currentHint && (
             <HintPage
               currentChallenge={currentChallenge}
+              currentHint={currentHint}
               team={team}
               setTeam={setTeam}
+              setCurrentHint={setCurrentHint}
             />
           )}
         </>
